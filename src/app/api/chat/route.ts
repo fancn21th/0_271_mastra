@@ -3,10 +3,11 @@ import { toAISdkV5Messages } from "@mastra/ai-sdk/ui";
 import { createUIMessageStreamResponse } from "ai";
 import { mastra } from "@/mastra";
 import { NextResponse } from "next/server";
-import { ProxyAgent, setGlobalDispatcher } from "undici";
 
 const THREAD_ID = "example-user-id";
 const RESOURCE_ID = "weather-chat";
+
+import { ProxyAgent, setGlobalDispatcher } from "undici";
 
 // 如果设置了代理环境变量，配置全局代理
 if (process.env.HTTP_PROXY || process.env.HTTPS_PROXY) {

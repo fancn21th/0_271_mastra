@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "next:dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "mastra": "mastra dev"
+    "mastra:dev": "mastra dev",
+    "dev": "concurrently \"pnpm run mastra:dev\" \"pnpm run next:dev\""
   },
   "dependencies": {
     "@ai-sdk/react": "3.0.64",
@@ -65,6 +66,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "9.2.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "mastra": "1.1.0",
