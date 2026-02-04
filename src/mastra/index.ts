@@ -8,13 +8,14 @@ import {
   SensitiveDataFilter,
 } from "@mastra/observability";
 import { weatherWorkflow } from "./workflows/weather-workflow";
-import { customerSupportAgent } from "./agents/customer-support-agent";
 import { customerSupportWorkflow } from "./workflows/customer-support-workflow";
+import { customerSupportAgent } from "./agents/customer-support-agent";
+import { queryEvaluatorAgent } from "./agents/query-evaluator-agent";
 import { weatherAgent } from "./agents/weather-agent";
 
 export const mastra = new Mastra({
   workflows: { weatherWorkflow, customerSupportWorkflow },
-  agents: { weatherAgent, customerSupportAgent },
+  agents: { weatherAgent, customerSupportAgent, queryEvaluatorAgent },
   storage: new LibSQLStore({
     id: "mastra-storage",
     // stores observability, scores, ... into memory storage, if it needs to persist, change to file:../mastra.db
