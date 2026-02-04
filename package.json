@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "mastra": "mastra dev"
   },
   "dependencies": {
     "@ai-sdk/react": "3.0.64",
@@ -45,7 +46,6 @@
     "cmdk": "1.1.1",
     "embla-carousel-react": "8.6.0",
     "lucide-react": "0.563.0",
-    "mastra": "1.1.0",
     "media-chrome": "4.17.2",
     "motion": "12.29.2",
     "nanoid": "5.1.6",
@@ -67,6 +67,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "mastra": "1.1.0",
     "tailwindcss": "^4",
     "tw-animate-css": "1.4.0",
     "typescript": "^5"
