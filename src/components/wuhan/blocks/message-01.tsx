@@ -258,7 +258,7 @@ const MessageUserPrimitive = React.forwardRef<
   ) => {
     return (
       <div
-        className="[&_*]:!box-border w-fit max-w-[70%]"
+        className="[&_*]:!box-border w-full"
         ref={ref}
         role={role}
         aria-label={ariaLabel}
