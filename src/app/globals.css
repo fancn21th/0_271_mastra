@@ -715,6 +715,17 @@ button:focus-visible {
   --font-family-display: var(--font-family-display);
   --font-family-cn: var(--font-family-cn);
   --font-family-en: var(--font-family-en);
+  @keyframes thinking-loading-pulse {
+  0%,
+    100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+    }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+    }
+  }
 }
 
 .dark {
@@ -1082,4 +1093,62 @@ button:focus-visible {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@utility border {
+    border-width: var(--border-width);
+}
+
+@utility border-x {
+    border-left-width: var(--border-width);
+    border-right-width: var(--border-width);
+}
+
+@utility border-y {
+    border-top-width: var(--border-width);
+    border-bottom-width: var(--border-width);
+}
+
+@utility border-t {
+    border-top-width: var(--border-width);
+}
+
+@utility border-r {
+    border-right-width: var(--border-width);
+}
+
+@utility border-b {
+    border-bottom-width: var(--border-width);
+}
+
+@utility border-l {
+    border-left-width: var(--border-width);
+}
+
+@utility font-size-1 {
+    font-size: var(--font-size-1);
+}
+
+@utility font-size-2 {
+    font-size: var(--font-size-2);
+}
+
+@utility font-size-3 {
+    font-size: var(--font-size-3);
+}
+
+@utility font-size-4 {
+    font-size: var(--font-size-4);
+}
+
+@utility font-size-5 {
+    font-size: var(--font-size-5);
+}
+
+@utility font-size-6 {
+    font-size: var(--font-size-6);
+}
+
+@utility font-semibold {
+    font-weight: 600;
 }
