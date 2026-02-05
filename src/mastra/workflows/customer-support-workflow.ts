@@ -2,8 +2,10 @@ import { createStep, createWorkflow } from "@mastra/core/workflows";
 import { z } from "zod";
 import { customerSupportAgent } from "../agents/customer-support-agent";
 import { queryEvaluatorAgent } from "../agents/query-evaluator-agent";
-
-const categorySchema = z.enum(["GENERAL", "ORDER INQUIRY"]);
+import {
+  CategorizeQueryEventData,
+  categorySchema,
+} from "../../types/custom-support-types";
 
 const categorizeQuery = createStep({
   id: "categorize-query",
@@ -15,17 +17,30 @@ const categorizeQuery = createStep({
     query: z.string().describe("The customer's support query"),
     category: categorySchema.describe("The category of the support query"),
   }),
-  execute: async ({ inputData }) => {
-    const result = await queryEvaluatorAgent.generate(
+  execute: async ({ inputData, writer }) => {
+    const response = await queryEvaluatorAgent.stream(
       `Evaluate the following customer query: ${inputData?.query}`,
       {
         structuredOutput: {
-          schema: z.object({ category: categorySchema }),
+          schema: categorySchema,
         },
       },
     );
 
-    return { query: inputData!.query, category: result.object.category };
+    for await (const chunk of response.objectStream) {
+      writer.write({
+        id: "categorize-query",
+        type: "categorize-query",
+        data: {
+          status: "streaming",
+          content: chunk,
+        } as CategorizeQueryEventData,
+      });
+    }
+
+    const finalObject = await response.object;
+
+    return { query: inputData!.query, category: finalObject };
   },
 });
 
@@ -131,11 +146,12 @@ export const customerSupportWorkflow = createWorkflow({
   .then(categorizeQuery)
   .branch([
     [
-      async ({ inputData: { category } }) => category === "GENERAL",
+      async ({ inputData: { category } }) => category.category === "GENERAL",
       generateAnswer,
     ],
     [
-      async ({ inputData: { category } }) => category === "ORDER INQUIRY",
+      async ({ inputData: { category } }) =>
+        category.category === "ORDER INQUIRY",
       askUserForAnswer,
     ],
   ])
